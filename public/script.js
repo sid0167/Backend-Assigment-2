@@ -1,9 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".delete-btn").forEach(button => {
-        button.addEventListener("click", function() {
-            const taskElement = this.parentElement;
-            const taskId = taskElement.getAttribute("data-id");
+    const taskList = document.getElementById("task-list");
 
+    taskList.addEventListener("click", (event) => {
+        const taskElement = event.target.closest("li");
+        if (!taskElement) return;
+
+        const taskId = taskElement.getAttribute("data-id");
+
+        if (event.target.classList.contains("delete-btn")) {
             fetch("/delete-task", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -15,14 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
                       setTimeout(() => taskElement.remove(), 300);
                   }
               });
-        });
-    });
+        }
 
-    document.querySelectorAll(".toggle-btn").forEach(button => {
-        button.addEventListener("click", function() {
-            const taskElement = this.parentElement;
-            const taskId = taskElement.getAttribute("data-id");
-
+        if (event.target.classList.contains("toggle-btn")) {
             fetch("/toggle-task", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -30,15 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }).then(() => {
                 taskElement.classList.toggle("completed");
             });
-        });
-    });
+        }
 
-    document.querySelectorAll(".edit-btn").forEach(button => {
-        button.addEventListener("click", function() {
-            const taskElement = this.parentElement;
-            const taskId = taskElement.getAttribute("data-id");
+        if (event.target.classList.contains("edit-btn")) {
             const newText = prompt("Edit your task:", taskElement.querySelector(".task-text").innerText);
-
             if (newText) {
                 fetch("/edit-task", {
                     method: "POST",
@@ -48,12 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     taskElement.querySelector(".task-text").innerText = newText;
                 });
             }
-        });
+        }
     });
 
     document.getElementById("clear-tasks").addEventListener("click", () => {
         fetch("/clear-tasks", { method: "POST" }).then(() => {
-            document.getElementById("task-list").innerHTML = "";
+            taskList.innerHTML = "";
         });
     });
 });

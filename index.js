@@ -13,8 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 const readTasks = () => {
     try {
-        const data = fs.readFileSync('tasks.json');
-        return JSON.parse(data);
+        return JSON.parse(fs.readFileSync('tasks.json'));
     } catch {
         return [];
     }
@@ -30,35 +29,25 @@ app.get('/', (req, res) => {
 
 app.get('/tasks', (req, res) => {
     const tasks = readTasks();
-    res.render('tasks', { tasks });
+    const showCompleted = req.query.showCompleted === 'true';
+    res.render('tasks', { tasks, showCompleted });
 });
 
 app.post('/add-task', (req, res) => {
     const tasks = readTasks();
-    const newTask = { 
-        id: Date.now(), 
-        text: req.body.text, 
-        completed: false, 
-        createdAt: new Date().toLocaleString() 
-    };
-    tasks.push(newTask);
+    tasks.push({ id: Date.now(), text: req.body.text, completed: false, createdAt: new Date().toLocaleString() });
     writeTasks(tasks);
     res.redirect('/tasks');
 });
 
 app.post('/delete-task', (req, res) => {
-    let tasks = readTasks();
-    tasks = tasks.filter(task => task.id !== parseInt(req.body.id));
-    writeTasks(tasks);
+    writeTasks(readTasks().filter(task => task.id !== parseInt(req.body.id)));
     res.json({ success: true });
 });
 
 app.post('/toggle-task', (req, res) => {
-    let tasks = readTasks();
-    tasks = tasks.map(task => {
-        if (task.id === parseInt(req.body.id)) {
-            task.completed = !task.completed;
-        }
+    const tasks = readTasks().map(task => {
+        if (task.id === parseInt(req.body.id)) task.completed = !task.completed;
         return task;
     });
     writeTasks(tasks);
@@ -66,11 +55,8 @@ app.post('/toggle-task', (req, res) => {
 });
 
 app.post('/edit-task', (req, res) => {
-    let tasks = readTasks();
-    tasks = tasks.map(task => {
-        if (task.id === parseInt(req.body.id)) {
-            task.text = req.body.newText;
-        }
+    const tasks = readTasks().map(task => {
+        if (task.id === parseInt(req.body.id)) task.text = req.body.newText;
         return task;
     });
     writeTasks(tasks);

@@ -1,7 +1,8 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     text-align: center;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .container {
@@ -10,25 +11,46 @@ body {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease-in-out;
 }
 
 input {
-    padding: 10px;
+    padding: 12px;
     width: 70%;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: blue;
 }
 
 button {
-    padding: 10px;
+    padding: 12px;
     background-color: blue;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+button:hover {
+    background-color: darkblue;
+    transform: scale(1.05);
 }
 
 #clear-tasks {
     margin-top: 10px;
     background-color: darkred;
+}
+
+#clear-tasks:hover {
+    background-color: red;
 }
 
 ul {
@@ -38,36 +60,103 @@ ul {
 
 li {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    background: lightgray;
-    padding: 10px;
-    margin: 5px;
+    background: #f9f9f9;
+    padding: 12px;
+    margin: 8px 0;
     border-radius: 5px;
-    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .completed {
     text-decoration: line-through;
     color: gray;
+    background: #ddd;
+}
+
+.delete-btn,
+.edit-btn,
+.toggle-btn {
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
 .delete-btn {
     background: red;
-    color: white;
-    border: none;
-    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: darkred;
+    transform: scale(1.1);
 }
 
 .edit-btn {
     background: orange;
-    color: white;
-    border: none;
-    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background: darkorange;
+    transform: scale(1.1);
 }
 
 .toggle-btn {
     background: green;
+}
+
+.toggle-btn:hover {
+    background: darkgreen;
+    transform: scale(1.1);
+}
+
+#search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#search:focus {
+    border-color: blue;
+}
+
+#filter {
+    background-color: purple;
+}
+
+#filter:hover {
+    background-color: darkmagenta;
+}
+
+#dark-mode {
+    background-color: black;
     color: white;
-    border: none;
-    cursor: pointer;
+}
+
+#dark-mode:hover {
+    background-color: #222;
+}
+
+.dark-mode {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.dark-mode .container {
+    background: #333;
+}
+
+.dark-mode li {
+    background: #444;
+}
+
+.dark-mode .completed {
+    color: #bbb;
 }
