@@ -52,5 +52,6 @@ Backend: Node.js, Express.js
 Frontend: EJS, HTML, CSS
 Storage: JSON File (tasks.json)
 
-![Screenshot 2025-02-22 162406](https://github.com/user-attachments/assets/4fff5dc1-a80c-44c9-bd83-d0919989e810)
+![image](https://github.com/user-attachments/assets/1ee0f7d4-183f-4f09-a9d8-0b7e0487d71e)
+
 
